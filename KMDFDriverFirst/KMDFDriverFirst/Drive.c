@@ -18,6 +18,7 @@ DriverEntry(
 
 	// Print "Hello World" for DriverEntry
 	KdPrintEx((DPFLTR_IHVDRIVER_ID, DPFLTR_INFO_LEVEL, "KmdfHelloWorld: DriverEntry\n"));
+	KdPrintEx((DPFLTR_IHVDRIVER_ID, DPFLTR_INFO_LEVEL, " DriverEntry\n"));
 
 	// Initialize the driver configuration object to register the
 	// entry point for the EvtDeviceAdd callback, KmdfHelloWorldEvtDeviceAdd
