@@ -1,5 +1,5 @@
 ;
-; KMDFDriver1.inf
+; KMDFDriverFirst.inf
 ;
 
 [Version]
@@ -7,12 +7,12 @@ Signature="$WINDOWS NT$"
 Class=Sample ; TODO: edit Class
 ClassGuid={78A1C341-4539-11d3-B88D-00C04FAD5171} ; TODO: edit ClassGuid
 Provider=%ManufacturerName%
-CatalogFile=KMDFDriver1.cat
+CatalogFile=KMDFDriverFirst.cat
 DriverVer= ; TODO: set DriverVer in stampinf property pages
 
 [DestinationDirs]
 DefaultDestDir = 12
-KMDFDriver1_Device_CoInstaller_CopyFiles = 11
+KMDFDriverFirst_Device_CoInstaller_CopyFiles = 11
 
 ; ================= Class section =====================
 
@@ -27,7 +27,7 @@ HKR,,Icon,,-5
 1 = %DiskName%,,,""
 
 [SourceDisksFiles]
-KMDFDriver1.sys  = 1,,
+KMDFDriverFirst.sys  = 1,,
 WdfCoInstaller$KMDFCOINSTALLERVERSION$.dll=1 ; make sure the number matches with SourceDisksNames
 
 ;*****************************************
@@ -38,49 +38,49 @@ WdfCoInstaller$KMDFCOINSTALLERVERSION$.dll=1 ; make sure the number matches with
 %ManufacturerName%=Standard,NT$ARCH$
 
 [Standard.NT$ARCH$]
-%KMDFDriver1.DeviceDesc%=KMDFDriver1_Device, Root\KMDFDriver1 ; TODO: edit hw-id
+%KMDFDriverFirst.DeviceDesc%=KMDFDriverFirst_Device, Root\KMDFDriverFirst ; TODO: edit hw-id
 
-[KMDFDriver1_Device.NT]
+[KMDFDriverFirst_Device.NT]
 CopyFiles=Drivers_Dir
 
 [Drivers_Dir]
-KMDFDriver1.sys
+KMDFDriverFirst.sys
 
 ;-------------- Service installation
-[KMDFDriver1_Device.NT.Services]
-AddService = KMDFDriver1,%SPSVCINST_ASSOCSERVICE%, KMDFDriver1_Service_Inst
+[KMDFDriverFirst_Device.NT.Services]
+AddService = KMDFDriverFirst,%SPSVCINST_ASSOCSERVICE%, KMDFDriverFirst_Service_Inst
 
-; -------------- KMDFDriver1 driver install sections
-[KMDFDriver1_Service_Inst]
-DisplayName    = %KMDFDriver1.SVCDESC%
+; -------------- KMDFDriverFirst driver install sections
+[KMDFDriverFirst_Service_Inst]
+DisplayName    = %KMDFDriverFirst.SVCDESC%
 ServiceType    = 1               ; SERVICE_KERNEL_DRIVER
 StartType      = 3               ; SERVICE_DEMAND_START
 ErrorControl   = 1               ; SERVICE_ERROR_NORMAL
-ServiceBinary  = %12%\KMDFDriver1.sys
+ServiceBinary  = %12%\KMDFDriverFirst.sys
 
 ;
-;--- KMDFDriver1_Device Coinstaller installation ------
+;--- KMDFDriverFirst_Device Coinstaller installation ------
 ;
 
-[KMDFDriver1_Device.NT.CoInstallers]
-AddReg=KMDFDriver1_Device_CoInstaller_AddReg
-CopyFiles=KMDFDriver1_Device_CoInstaller_CopyFiles
+[KMDFDriverFirst_Device.NT.CoInstallers]
+AddReg=KMDFDriverFirst_Device_CoInstaller_AddReg
+CopyFiles=KMDFDriverFirst_Device_CoInstaller_CopyFiles
 
-[KMDFDriver1_Device_CoInstaller_AddReg]
+[KMDFDriverFirst_Device_CoInstaller_AddReg]
 HKR,,CoInstallers32,0x00010000, "WdfCoInstaller$KMDFCOINSTALLERVERSION$.dll,WdfCoInstaller"
 
-[KMDFDriver1_Device_CoInstaller_CopyFiles]
+[KMDFDriverFirst_Device_CoInstaller_CopyFiles]
 WdfCoInstaller$KMDFCOINSTALLERVERSION$.dll
 
-[KMDFDriver1_Device.NT.Wdf]
-KmdfService =  KMDFDriver1, KMDFDriver1_wdfsect
-[KMDFDriver1_wdfsect]
+[KMDFDriverFirst_Device.NT.Wdf]
+KmdfService =  KMDFDriverFirst, KMDFDriverFirst_wdfsect
+[KMDFDriverFirst_wdfsect]
 KmdfLibraryVersion = $KMDFVERSION$
 
 [Strings]
 SPSVCINST_ASSOCSERVICE= 0x00000002
 ManufacturerName="<Your manufacturer name>" ;TODO: Replace with your manufacturer name
 ClassName="Samples" ; TODO: edit ClassName
-DiskName = "KMDFDriver1 Installation Disk"
-KMDFDriver1.DeviceDesc = "KMDFDriver1 Device"
-KMDFDriver1.SVCDESC = "KMDFDriver1 Service"
+DiskName = "KMDFDriverFirst Installation Disk"
+KMDFDriverFirst.DeviceDesc = "KMDFDriverFirst Device"
+KMDFDriverFirst.SVCDESC = "KMDFDriverFirst Service"
