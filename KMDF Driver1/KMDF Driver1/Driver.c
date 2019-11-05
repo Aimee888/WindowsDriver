@@ -23,6 +23,9 @@ Environment:
 #pragma alloc_text (PAGE, KMDFDriver1EvtDriverContextCleanup)
 #endif
 
+// 驱动卸载回调函数
+VOID KMDFDriver1EvtDriverUnload(IN WDFDRIVER Driver);
+
 NTSTATUS
 DriverEntry(
     _In_ PDRIVER_OBJECT  DriverObject,
@@ -76,6 +79,9 @@ Return Value:
                            KMDFDriver1EvtDeviceAdd
                            );
 
+	// 注册EvtDriverUnload回调函数
+	config.EvtDriverUnload = KMDFDriver1EvtDriverUnload;
+
     status = WdfDriverCreate(DriverObject,
                              RegistryPath,
                              &attributes,
@@ -128,6 +134,8 @@ Return Value:
 
     status = KMDFDriver1CreateDevice(DeviceInit);
 
+	KdPrint(("Hello World!\n"));
+
     TraceEvents(TRACE_LEVEL_INFORMATION, TRACE_DRIVER, "%!FUNC! Exit");
 
     return status;
@@ -162,4 +170,9 @@ Return Value:
     // Stop WPP Tracing
     //
     WPP_CLEANUP(WdfDriverWdmGetDriverObject((WDFDRIVER)DriverObject));
+}
+
+VOID KMDFDriver1EvtDriverUnload(IN WDFDRIVER Driver)
+{
+	KdPrint(("Thanks For Using!\n"));
 }
